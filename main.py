@@ -6,11 +6,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    n = random.randint(0, 1000)
-    k = random.randint(100, 5000)
-    return render_template('index.html', n=n, k=k)
+    return render_template('index.html')
 
 
+# only local service
 @app.route('/login')
 def login():
     return render_template('login.html')
