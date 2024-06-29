@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-</head>
-<body>
-    <from>
-        <h2>login</h2>
-        <label for="">
-            Enter login:
-            <input type="text" name="username">
-        </label>
-        <label for="">
-            Enter password:
-            <input type="password" name="password">
-        </label>
-        <button type="submit" name="submit"></button>
-    </from>
+{% extends "layout.html" %}
 
-</body>
-</html>
+{% block content %}
+<form>
+    <h2>login</h2>
+    <label for="">
+        Enter login:
+        <input type="text" name="username">
+    </label>
+    <label for="">
+        Enter password:
+        <input type="password" name="password">
+    </label>
+    <button type="submit" name="submit"></button>
+</form>
+{% endblock %}
