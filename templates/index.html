@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 
+{% block welcom %}
+	{% if user_name %}
+		<p>Welcome, {{user_name}}!</p>
+	{% else %}
+		<p>Hello!</p>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
 <section class="logo">
     <h1>Rediscover the world</h1>

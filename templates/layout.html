@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% if title %}
@@ -20,9 +21,13 @@
                 <li><a href="/articles">Articles</a></li>
                 <li><a href="/about">About</a></li>
 
+                <!-- login -->
                 <li><a href="/login">Login</a></li>
             </ul>
         </nav>
+        <div class="welcome_user">
+            {% block welcom %}{% endblock %}
+        </div>
     </header>
     <main>
 
@@ -30,12 +35,9 @@
 
     </main>
     <footer>
-        <p>
-            Copyright © 1999-2020 Ctrip.com (Hong Kong) Limited. All rights reserved.
+        <p>Copyright © 1999-2020 Ctrip.com (Hong Kong) Limited. All rights reserved.
             Site Operator: Ctrip.com (Hong Kong) Limited
-            Hong Kong Travel License No. 352367
-
-        </p>
+            Hong Kong Travel License No. 352367</p>
     </footer>
 </body>
 </html>
