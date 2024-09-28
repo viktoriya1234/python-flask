@@ -1,5 +1,11 @@
-from flask import Flask, render_template
+from datetime import datetime
+from email.policy import default
+
+from flask import request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
+
 import os
 
 
@@ -8,7 +14,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 
 
@@ -17,9 +22,20 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(150), nullable=False)
     password = db.Column(db.String(25), nullable=False)
+    role = db.Column(db.Integer(), default=0, nullable=False)
 
     def __repr__(self):
         return  f'<User {self.username}>'
+
+
+class Posts(db.Model):
+    __tablename__ = 'Posts'
+    id = db.Column(db.Integer, primary_key=True)
+    post_name = db.Column(db.String(255), nullable=False)
+    post_text = db.Column(db.Text(), nullable=False)
+    post_image = db.Column(db.String(255), nullable=False)
+    continent = db.Column(db.String(255), nullable=False)
+    created_on = db.Column(db.Date(), default=datetime.utcnow)
 
 
 with app.app_context():
@@ -41,6 +57,22 @@ def about():
     return render_template('about.html', title='About')
 
 
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        new_user = User(username=username, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return render_template('index.html')
+    else:
+        return render_template('add_user.html')
+
+
 @app.route('/articles')
 def articles():
     new_articles = ['How to avoid expensive travel mistakes', 'Top 5 places to experience supernatural forces',
@@ -48,6 +80,12 @@ def articles():
                     'How to survive on a desert island']
     return render_template('articles.html', articles=new_articles)
 
+
+@app.route('/add_post')
+def add_post():
+    pass
+
+    return render_template('add_post.html')
 
 @app.route('/details')
 def details():
